@@ -1,0 +1,4 @@
+train:
+  epoch: 5
+  learning_rate: 3.0e-4
+  K: 2 # the probability of text and align

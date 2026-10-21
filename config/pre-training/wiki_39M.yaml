@@ -1,0 +1,28 @@
+# Stage 0: text pre-training on Simple English Wikipedia (~39M supervised tokens).
+#
+# These two keys are the only things Main.py reads:
+#   train.epoch           number of epochs (also feeds the interleaving ratio K)
+#   train.learning_rate   handed straight to Adam()
+#
+# The datasets are NOT configured here. train_and_eval() loads both streams itself
+# (prompt/prompt_wiki.py for the text stream, prompt/prompt_vision_align.py for the
+# alignment stream) and interleaves them, so there is no path left to dispatch on.
+#
+# Deliberately NOT in this file:
+#   model architecture -> fixed in model/gpt2.py (d_model=512, n_heads=8, n_layers=6,
+#        block_size=320, 85.4M params). This is a "change it and every checkpoint
+#        dies" decision, not a knob: block_size drives pos_emb rows + causal_mask
+#        shape and vocab_size drives token_emb/head, so old state_dicts stop
+#        loading. The n_heads=6 that used to sit here would have crashed outright
+#        (512 is not divisible by 6).
+#   batch_size / num_workers -> hardcoded in prompt/prompt_wiki.py (32 / 0).
+#   weight_decay / lr_scheduler_type / gradient_accumulation_steps / dropout /
+#   freeze / loss / io -> nothing reads them. Re-add each one in the same edit that
+#        consumes it; an unread key is worse than a missing one.
+#   K (the text:align step ratio) -> computed inside train_and_eval() from the epoch
+#        count and the two loader lengths, so it follows the epoch count for free.
+
+train:
+  epoch: 5
+  learning_rate: 3.0e-4
+  K: None
