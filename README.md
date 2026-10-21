@@ -138,15 +138,14 @@ faster than test), which is where the run was stopped.
 - **The alignment dataloader is not portable.** `prompt/prompt_vision_align.py`
   locates `images.zip` by globbing a HuggingFace cache path; it assumes the
   dataset was downloaded through `datasets`.
-- **Stage 3 is not finished.** `SFT_train.py` is a scaffold: it still targets
-  `trl`/`transformers` APIs that do not apply to a hand-written model.
+- **Stage 3 is not started.** VQAv2 fine-tuning is the next step; nothing in
+  this repository trains on VQA data yet, and no VQA numbers exist.
 
 ## Repository layout
 
 ```
 Main.py                        entry point: reads a YAML config, trains, then runs two generations
 Train_and_Eval.py              interleaved text/align training, evaluation, checkpointing
-SFT_train.py                   stage-3 scaffold (not wired up yet)
 config/pre-training/           YAML: epochs, learning rate, K
 model/gpt2.py                  decoder, projector, no_image_emb, InfoNCE head
 model/vision_encoder.py        ViT

@@ -15,3 +15,7 @@ __pycache__/
 *.log
 *.pth
 logs/backup_truncated/
+
+# Stage-3 scaffold, not published until it runs against this model (it still
+# targets trl/transformers APIs that do not apply to a hand-written decoder).
+SFT_train.py
