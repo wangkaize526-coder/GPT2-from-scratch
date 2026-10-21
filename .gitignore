@@ -1,3 +1,17 @@
-__pycache__/
+# Datasets and weights stay out of the repo: data/ is 3.7 G (the 558k alignment
+# jsonl and the raw COCO/Pet archives) and check_point/ is 331 M per file.
+data/
+check_point/
+wandb/
+
+# Environments and interpreter caches
 venv/
+__pycache__/
+*.pyc
 .DS_Store
+
+# Run artefacts. The diagnostic scripts in logs/ are tracked -- they are what
+# produced the three-way probe numbers -- but their output is not.
+*.log
+*.pth
+logs/backup_truncated/
